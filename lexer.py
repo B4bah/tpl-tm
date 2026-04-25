@@ -9,7 +9,7 @@ tokens = (
     # Operators (Keywords)
     'MUL', 'DIV', 'SQRT',
     'AND', 'NEQ', 'NOT',
-    'ADD', 'SUB', # Although not in your original set, ADD is used in the loop iteration example. We'll include common ones.
+    'ADD', 'SUB',
     # Syntax
     'EQUALS',
     'LPAREN', 'RPAREN',
@@ -38,36 +38,48 @@ t_RBRACKET = r'\]'
 
 # --- Complex Token Rules ---
 def t_NUMBER(t):
-    r'\d+\.\d+([eE][+-]?\d+)?|\d+[eE][+-]?\d+' # Matches 15.75, 1.5E-2, 3e+10
+    r'\d+\.\d+([eE][+-]?\d+)?|\d+[eE][+-]?\d+|\.\d+([eE][+-]?\d+)?'
     t.value = float(t.value)
     return t
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value, 'ID') # Check for reserved words
-    # Enforce max length of 8 for non-reserved identifiers (Table 2, Option 2)
-    if t.type == 'ID' and len(t.value) > 8:
-        print(f"Lexical error at line {t.lineno}: Identifier '{t.value}' exceeds maximum length of 8.")
-        t.lexer.skip(1) # Skip the problematic identifier? Or just report. We'll just report and keep the ID.
-        t.value = t.value[:8] # Truncate it for compilation, but this is a design choice.
-    # Placeholder for boolean variables. In a real compiler, you'd have a symbol table.
-    # Here, we simply assume variables starting with 'b_' are boolean.
-    # This is a huge simplification for the assignment.
-    if t.type == 'ID' and t.value.startswith('b_'):
-        t.type = 'BOOLEAN_VAR'
+    # Check if it's a reserved word FIRST
+    token_type = reserved.get(t.value, 'ID')
+    
+    # For regular identifiers (not keywords), apply length check
+    if token_type == 'ID' and len(t.value) > 8:
+        print(f"Lexical error at line {t.lexer.lineno}: Identifier '{t.value}' exceeds maximum length of 8.")
+        t.value = t.value[:8]  # Truncate to first 8 characters
+    
+    # After truncation (or not), check if what remains is a reserved word
+    if token_type == 'ID':
+        # Check if truncated value is reserved
+        if t.value in reserved:
+            token_type = reserved[t.value]
+        # Check if it's a boolean variable (starts with b_)
+        elif t.value.startswith('b_'):
+            token_type = 'BOOLEAN_VAR'
+    
+    t.type = token_type
     return t
+
+# --- Handling Comments ---
+def t_COMMENT(t):
+    r'\#.*'
+    pass  # Ignore comments (no return value discards token)
 
 # --- Tracking Line Numbers ---
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-# --- Ignored Characters (Whitespace and possible tabs) ---
+# --- Ignored Characters (Whitespace) ---
 t_ignore = ' \t'
 
 # --- Error Handling ---
 def t_error(t):
-    print(f"Lexical error at line {t.lineno}: Illegal character '{t.value[0]}'")
+    print(f"Lexical error at line {t.lexer.lineno}: Illegal character '{t.value[0]}'")
     t.lexer.skip(1)
 
 # Build the lexer

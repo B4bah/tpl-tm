@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftANDNEQleftADDSUBleftMULDIVrightNOTSQRTADD AND BOOLEAN_VAR DIV EQUALS FOR ID LBRACKET LPAREN MUL NEQ NOT NUMBER RBRACKET RPAREN SQRT SUBprogram : statement_liststatement_list : statement\n| statement_list statementstatement : for_statement\n| assign_statementfor_statement : assign_statement FOR expression assign_statement assign_statementassign_statement : ID EQUALS expression\n| ID LBRACKET expression RBRACKET EQUALS expressionexpression : NUMBER\n| ID\n| BOOLEAN_VAR\n| ID LBRACKET expression RBRACKET\n| unary_op expression\n| binary_op expression expressionunary_op : NOT\n| SQRTbinary_op : NEQ\n| AND\n| MUL\n| DIV\n| ADD\n| SUB'
+_lr_signature = 'leftANDNEQleftADDSUBleftMULDIVrightNOTSQRTADD AND BOOLEAN_VAR DIV EQUALS FOR ID LBRACKET LPAREN MUL NEQ NOT NUMBER RBRACKET RPAREN SQRT SUBprogram : statement_liststatement_list : statementstatement_list : statement_list statementstatement : for_statement\n| assign_statementfor_statement : assign_statement FOR expression assign_statement assign_statementassign_statement : ID EQUALS expressionassign_statement : ID LBRACKET expression RBRACKET EQUALS expressionexpression : NUMBERexpression : IDexpression : BOOLEAN_VARexpression : ID LBRACKET expression RBRACKETexpression : unary_op expressionexpression : binary_op expression expressionunary_op : NOT\n| SQRTbinary_op : NEQ\n| AND\n| MUL\n| DIV\n| ADD\n| SUB'
     
 _lr_action_items = {'ID':([0,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,28,29,30,32,34,35,36,37,],[6,6,-2,-4,-5,-3,13,13,13,6,-9,-10,-11,13,13,-15,-16,-17,-18,-19,-20,-21,-22,-7,6,13,-13,13,-6,-14,13,-12,-8,]),'$end':([1,2,3,4,5,7,12,13,14,25,29,32,34,36,37,],[0,-1,-2,-4,-5,-3,-9,-10,-11,-7,-13,-6,-14,-12,-8,]),'FOR':([5,12,13,14,25,29,34,36,37,],[8,-9,-10,-11,-7,-13,-14,-12,-8,]),'EQUALS':([6,31,],[9,35,]),'LBRACKET':([6,13,],[10,28,]),'NUMBER':([8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,28,29,30,34,35,36,],[12,12,12,-9,-10,-11,12,12,-15,-16,-17,-18,-19,-20,-21,-22,12,-13,12,-14,12,-12,]),'BOOLEAN_VAR':([8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,28,29,30,34,35,36,],[14,14,14,-9,-10,-11,14,14,-15,-16,-17,-18,-19,-20,-21,-22,14,-13,14,-14,14,-12,]),'NOT':([8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,28,29,30,34,35,36,],[17,17,17,-9,-10,-11,17,17,-15,-16,-17,-18,-19,-20,-21,-22,17,-13,17,-14,17,-12,]),'SQRT':([8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,28,29,30,34,35,36,],[18,18,18,-9,-10,-11,18,18,-15,-16,-17,-18,-19,-20,-21,-22,18,-13,18,-14,18,-12,]),'NEQ':([8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,28,29,30,34,35,36,],[19,19,19,-9,-10,-11,19,19,-15,-16,-17,-18,-19,-20,-21,-22,19,-13,19,-14,19,-12,]),'AND':([8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,28,29,30,34,35,36,],[20,20,20,-9,-10,-11,20,20,-15,-16,-17,-18,-19,-20,-21,-22,20,-13,20,-14,20,-12,]),'MUL':([8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,28,29,30,34,35,36,],[21,21,21,-9,-10,-11,21,21,-15,-16,-17,-18,-19,-20,-21,-22,21,-13,21,-14,21,-12,]),'DIV':([8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,28,29,30,34,35,36,],[22,22,22,-9,-10,-11,22,22,-15,-16,-17,-18,-19,-20,-21,-22,22,-13,22,-14,22,-12,]),'ADD':([8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,28,29,30,34,35,36,],[23,23,23,-9,-10,-11,23,23,-15,-16,-17,-18,-19,-20,-21,-22,23,-13,23,-14,23,-12,]),'SUB':([8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,28,29,30,34,35,36,],[24,24,24,-9,-10,-11,24,24,-15,-16,-17,-18,-19,-20,-21,-22,24,-13,24,-14,24,-12,]),'RBRACKET':([12,13,14,26,29,33,34,36,],[-9,-10,-11,31,-13,36,-14,-12,]),}
 
@@ -27,26 +27,26 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> statement_list','program',1,'p_program','parser.py',19),
-  ('statement_list -> statement','statement_list',1,'p_statement_list','parser.py',23),
-  ('statement_list -> statement_list statement','statement_list',2,'p_statement_list','parser.py',24),
-  ('statement -> for_statement','statement',1,'p_statement','parser.py',31),
-  ('statement -> assign_statement','statement',1,'p_statement','parser.py',32),
-  ('for_statement -> assign_statement FOR expression assign_statement assign_statement','for_statement',5,'p_for_statement','parser.py',36),
-  ('assign_statement -> ID EQUALS expression','assign_statement',3,'p_assign_statement','parser.py',44),
-  ('assign_statement -> ID LBRACKET expression RBRACKET EQUALS expression','assign_statement',6,'p_assign_statement','parser.py',45),
-  ('expression -> NUMBER','expression',1,'p_expression','parser.py',54),
-  ('expression -> ID','expression',1,'p_expression','parser.py',55),
-  ('expression -> BOOLEAN_VAR','expression',1,'p_expression','parser.py',56),
-  ('expression -> ID LBRACKET expression RBRACKET','expression',4,'p_expression','parser.py',57),
-  ('expression -> unary_op expression','expression',2,'p_expression','parser.py',58),
-  ('expression -> binary_op expression expression','expression',3,'p_expression','parser.py',59),
-  ('unary_op -> NOT','unary_op',1,'p_unary_op','parser.py',81),
-  ('unary_op -> SQRT','unary_op',1,'p_unary_op','parser.py',82),
-  ('binary_op -> NEQ','binary_op',1,'p_binary_op','parser.py',86),
-  ('binary_op -> AND','binary_op',1,'p_binary_op','parser.py',87),
-  ('binary_op -> MUL','binary_op',1,'p_binary_op','parser.py',88),
-  ('binary_op -> DIV','binary_op',1,'p_binary_op','parser.py',89),
-  ('binary_op -> ADD','binary_op',1,'p_binary_op','parser.py',90),
-  ('binary_op -> SUB','binary_op',1,'p_binary_op','parser.py',91),
+  ('program -> statement_list','program',1,'p_program','parser.py',15),
+  ('statement_list -> statement','statement_list',1,'p_statement_list_1','parser.py',19),
+  ('statement_list -> statement_list statement','statement_list',2,'p_statement_list_2','parser.py',23),
+  ('statement -> for_statement','statement',1,'p_statement','parser.py',27),
+  ('statement -> assign_statement','statement',1,'p_statement','parser.py',28),
+  ('for_statement -> assign_statement FOR expression assign_statement assign_statement','for_statement',5,'p_for_statement','parser.py',32),
+  ('assign_statement -> ID EQUALS expression','assign_statement',3,'p_assign_statement_simple','parser.py',40),
+  ('assign_statement -> ID LBRACKET expression RBRACKET EQUALS expression','assign_statement',6,'p_assign_statement_indexed','parser.py',44),
+  ('expression -> NUMBER','expression',1,'p_expression_number','parser.py',48),
+  ('expression -> ID','expression',1,'p_expression_var','parser.py',52),
+  ('expression -> BOOLEAN_VAR','expression',1,'p_expression_bool','parser.py',56),
+  ('expression -> ID LBRACKET expression RBRACKET','expression',4,'p_expression_indexed','parser.py',60),
+  ('expression -> unary_op expression','expression',2,'p_expression_unary','parser.py',64),
+  ('expression -> binary_op expression expression','expression',3,'p_expression_binary','parser.py',68),
+  ('unary_op -> NOT','unary_op',1,'p_unary_op','parser.py',73),
+  ('unary_op -> SQRT','unary_op',1,'p_unary_op','parser.py',74),
+  ('binary_op -> NEQ','binary_op',1,'p_binary_op','parser.py',78),
+  ('binary_op -> AND','binary_op',1,'p_binary_op','parser.py',79),
+  ('binary_op -> MUL','binary_op',1,'p_binary_op','parser.py',80),
+  ('binary_op -> DIV','binary_op',1,'p_binary_op','parser.py',81),
+  ('binary_op -> ADD','binary_op',1,'p_binary_op','parser.py',82),
+  ('binary_op -> SUB','binary_op',1,'p_binary_op','parser.py',83),
 ]
