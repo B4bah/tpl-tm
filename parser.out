@@ -1,89 +1,129 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    LPAREN
-    RPAREN
-
 Grammar
 
 Rule 0     S' -> program
-Rule 1     program -> statement_list
-Rule 2     statement_list -> statement
-Rule 3     statement_list -> statement_list statement
-Rule 4     statement -> for_statement
-Rule 5     statement -> assign_statement
-Rule 6     for_statement -> assign_statement FOR expression assign_statement assign_statement
-Rule 7     assign_statement -> ID EQUALS expression
-Rule 8     assign_statement -> ID LBRACKET expression RBRACKET EQUALS expression
-Rule 9     expression -> NUMBER
-Rule 10    expression -> ID
-Rule 11    expression -> BOOLEAN_VAR
-Rule 12    expression -> ID LBRACKET expression RBRACKET
-Rule 13    expression -> unary_op expression
-Rule 14    expression -> binary_op expression expression
-Rule 15    unary_op -> NOT
-Rule 16    unary_op -> SQRT
-Rule 17    binary_op -> NEQ
-Rule 18    binary_op -> AND
-Rule 19    binary_op -> MUL
-Rule 20    binary_op -> DIV
-Rule 21    binary_op -> ADD
-Rule 22    binary_op -> SUB
+Rule 1     program -> for_list
+Rule 2     for_list -> for_stmt
+Rule 3     for_list -> for_stmt for_list
+Rule 4     for_stmt -> expression FOR expression expression assign_stmt
+Rule 5     assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression
+Rule 6     expression -> ADD expression expression
+Rule 7     expression -> SUB expression expression
+Rule 8     expression -> MUL expression expression
+Rule 9     expression -> DIV expression expression
+Rule 10    expression -> AND expression expression
+Rule 11    expression -> OR expression expression
+Rule 12    expression -> EQ expression expression
+Rule 13    expression -> NE expression expression
+Rule 14    expression -> LT expression expression
+Rule 15    expression -> GT expression expression
+Rule 16    expression -> LE expression expression
+Rule 17    expression -> GE expression expression
+Rule 18    expression -> NOT expression
+Rule 19    expression -> SQRT expression
+Rule 20    expression -> ID ASSIGN expression
+Rule 21    expression -> ID
+Rule 22    expression -> INTEGER_CONST
+Rule 23    expression -> REAL_CONST
+Rule 24    expression -> TRUE
+Rule 25    expression -> FALSE
+Rule 26    expression -> array_ref
+Rule 27    array_ref -> ID LBRACKET expression RBRACKET
 
 Terminals, with rules where they appear
 
-ADD                  : 21
-AND                  : 18
-BOOLEAN_VAR          : 11
-DIV                  : 20
-EQUALS               : 7 8
-FOR                  : 6
-ID                   : 7 8 10 12
-LBRACKET             : 8 12
-LPAREN               : 
-MUL                  : 19
-NEQ                  : 17
-NOT                  : 15
-NUMBER               : 9
-RBRACKET             : 8 12
-RPAREN               : 
-SQRT                 : 16
-SUB                  : 22
+ADD                  : 6
+AND                  : 10
+ASSIGN               : 5 20
+DIV                  : 9
+EQ                   : 12
+FALSE                : 25
+FOR                  : 4
+GE                   : 17
+GT                   : 15
+ID                   : 5 20 21 27
+INTEGER_CONST        : 22
+LBRACKET             : 5 27
+LE                   : 16
+LT                   : 14
+MUL                  : 8
+NE                   : 13
+NOT                  : 18
+OR                   : 11
+RBRACKET             : 5 27
+REAL_CONST           : 23
+SQRT                 : 19
+SUB                  : 7
+TRUE                 : 24
 error                : 
 
 Nonterminals, with rules where they appear
 
-assign_statement     : 5 6 6 6
-binary_op            : 14
-expression           : 6 7 8 8 12 13 14 14
-for_statement        : 4
+array_ref            : 26
+assign_stmt          : 4
+expression           : 4 4 4 5 5 6 6 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 17 18 19 20 27
+for_list             : 1 3
+for_stmt             : 2 3
 program              : 0
-statement            : 2 3
-statement_list       : 1 3
-unary_op             : 13
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . program
-    (1) program -> . statement_list
-    (2) statement_list -> . statement
-    (3) statement_list -> . statement_list statement
-    (4) statement -> . for_statement
-    (5) statement -> . assign_statement
-    (6) for_statement -> . assign_statement FOR expression assign_statement assign_statement
-    (7) assign_statement -> . ID EQUALS expression
-    (8) assign_statement -> . ID LBRACKET expression RBRACKET EQUALS expression
+    (1) program -> . for_list
+    (2) for_list -> . for_stmt
+    (3) for_list -> . for_stmt for_list
+    (4) for_stmt -> . expression FOR expression expression assign_stmt
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              shift and go to state 6
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
     program                        shift and go to state 1
-    statement_list                 shift and go to state 2
-    statement                      shift and go to state 3
-    for_statement                  shift and go to state 4
-    assign_statement               shift and go to state 5
+    for_list                       shift and go to state 2
+    for_stmt                       shift and go to state 3
+    expression                     shift and go to state 4
+    array_ref                      shift and go to state 24
 
 state 1
 
@@ -93,657 +133,2354 @@ state 1
 
 state 2
 
-    (1) program -> statement_list .
-    (3) statement_list -> statement_list . statement
-    (4) statement -> . for_statement
-    (5) statement -> . assign_statement
-    (6) for_statement -> . assign_statement FOR expression assign_statement assign_statement
-    (7) assign_statement -> . ID EQUALS expression
-    (8) assign_statement -> . ID LBRACKET expression RBRACKET EQUALS expression
+    (1) program -> for_list .
 
-    $end            reduce using rule 1 (program -> statement_list .)
-    ID              shift and go to state 6
+    $end            reduce using rule 1 (program -> for_list .)
 
-    statement                      shift and go to state 7
-    for_statement                  shift and go to state 4
-    assign_statement               shift and go to state 5
 
 state 3
 
-    (2) statement_list -> statement .
+    (2) for_list -> for_stmt .
+    (3) for_list -> for_stmt . for_list
+    (2) for_list -> . for_stmt
+    (3) for_list -> . for_stmt for_list
+    (4) for_stmt -> . expression FOR expression expression assign_stmt
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              reduce using rule 2 (statement_list -> statement .)
-    $end            reduce using rule 2 (statement_list -> statement .)
+    $end            reduce using rule 2 (for_list -> for_stmt .)
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    for_stmt                       shift and go to state 3
+    for_list                       shift and go to state 25
+    expression                     shift and go to state 4
+    array_ref                      shift and go to state 24
 
 state 4
 
-    (4) statement -> for_statement .
+    (4) for_stmt -> expression . FOR expression expression assign_stmt
 
-    ID              reduce using rule 4 (statement -> for_statement .)
-    $end            reduce using rule 4 (statement -> for_statement .)
+    FOR             shift and go to state 26
 
 
 state 5
 
-    (5) statement -> assign_statement .
-    (6) for_statement -> assign_statement . FOR expression assign_statement assign_statement
+    (6) expression -> ADD . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              reduce using rule 5 (statement -> assign_statement .)
-    $end            reduce using rule 5 (statement -> assign_statement .)
-    FOR             shift and go to state 8
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 27
+    array_ref                      shift and go to state 24
 
 state 6
 
-    (7) assign_statement -> ID . EQUALS expression
-    (8) assign_statement -> ID . LBRACKET expression RBRACKET EQUALS expression
+    (7) expression -> SUB . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    EQUALS          shift and go to state 9
-    LBRACKET        shift and go to state 10
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 28
+    array_ref                      shift and go to state 24
 
 state 7
 
-    (3) statement_list -> statement_list statement .
+    (8) expression -> MUL . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              reduce using rule 3 (statement_list -> statement_list statement .)
-    $end            reduce using rule 3 (statement_list -> statement_list statement .)
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 29
+    array_ref                      shift and go to state 24
 
 state 8
 
-    (6) for_statement -> assign_statement FOR . expression assign_statement assign_statement
-    (9) expression -> . NUMBER
-    (10) expression -> . ID
-    (11) expression -> . BOOLEAN_VAR
-    (12) expression -> . ID LBRACKET expression RBRACKET
-    (13) expression -> . unary_op expression
-    (14) expression -> . binary_op expression expression
-    (15) unary_op -> . NOT
-    (16) unary_op -> . SQRT
-    (17) binary_op -> . NEQ
-    (18) binary_op -> . AND
-    (19) binary_op -> . MUL
-    (20) binary_op -> . DIV
-    (21) binary_op -> . ADD
-    (22) binary_op -> . SUB
+    (9) expression -> DIV . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    NUMBER          shift and go to state 12
-    ID              shift and go to state 13
-    BOOLEAN_VAR     shift and go to state 14
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
     NOT             shift and go to state 17
     SQRT            shift and go to state 18
-    NEQ             shift and go to state 19
-    AND             shift and go to state 20
-    MUL             shift and go to state 21
-    DIV             shift and go to state 22
-    ADD             shift and go to state 23
-    SUB             shift and go to state 24
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 11
-    unary_op                       shift and go to state 15
-    binary_op                      shift and go to state 16
+    expression                     shift and go to state 30
+    array_ref                      shift and go to state 24
 
 state 9
 
-    (7) assign_statement -> ID EQUALS . expression
-    (9) expression -> . NUMBER
-    (10) expression -> . ID
-    (11) expression -> . BOOLEAN_VAR
-    (12) expression -> . ID LBRACKET expression RBRACKET
-    (13) expression -> . unary_op expression
-    (14) expression -> . binary_op expression expression
-    (15) unary_op -> . NOT
-    (16) unary_op -> . SQRT
-    (17) binary_op -> . NEQ
-    (18) binary_op -> . AND
-    (19) binary_op -> . MUL
-    (20) binary_op -> . DIV
-    (21) binary_op -> . ADD
-    (22) binary_op -> . SUB
+    (10) expression -> AND . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    NUMBER          shift and go to state 12
-    ID              shift and go to state 13
-    BOOLEAN_VAR     shift and go to state 14
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
     NOT             shift and go to state 17
     SQRT            shift and go to state 18
-    NEQ             shift and go to state 19
-    AND             shift and go to state 20
-    MUL             shift and go to state 21
-    DIV             shift and go to state 22
-    ADD             shift and go to state 23
-    SUB             shift and go to state 24
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 25
-    unary_op                       shift and go to state 15
-    binary_op                      shift and go to state 16
+    expression                     shift and go to state 31
+    array_ref                      shift and go to state 24
 
 state 10
 
-    (8) assign_statement -> ID LBRACKET . expression RBRACKET EQUALS expression
-    (9) expression -> . NUMBER
-    (10) expression -> . ID
-    (11) expression -> . BOOLEAN_VAR
-    (12) expression -> . ID LBRACKET expression RBRACKET
-    (13) expression -> . unary_op expression
-    (14) expression -> . binary_op expression expression
-    (15) unary_op -> . NOT
-    (16) unary_op -> . SQRT
-    (17) binary_op -> . NEQ
-    (18) binary_op -> . AND
-    (19) binary_op -> . MUL
-    (20) binary_op -> . DIV
-    (21) binary_op -> . ADD
-    (22) binary_op -> . SUB
+    (11) expression -> OR . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    NUMBER          shift and go to state 12
-    ID              shift and go to state 13
-    BOOLEAN_VAR     shift and go to state 14
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
     NOT             shift and go to state 17
     SQRT            shift and go to state 18
-    NEQ             shift and go to state 19
-    AND             shift and go to state 20
-    MUL             shift and go to state 21
-    DIV             shift and go to state 22
-    ADD             shift and go to state 23
-    SUB             shift and go to state 24
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 26
-    unary_op                       shift and go to state 15
-    binary_op                      shift and go to state 16
+    expression                     shift and go to state 32
+    array_ref                      shift and go to state 24
 
 state 11
 
-    (6) for_statement -> assign_statement FOR expression . assign_statement assign_statement
-    (7) assign_statement -> . ID EQUALS expression
-    (8) assign_statement -> . ID LBRACKET expression RBRACKET EQUALS expression
+    (12) expression -> EQ . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              shift and go to state 6
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    assign_statement               shift and go to state 27
+    expression                     shift and go to state 33
+    array_ref                      shift and go to state 24
 
 state 12
 
-    (9) expression -> NUMBER .
+    (13) expression -> NE . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              reduce using rule 9 (expression -> NUMBER .)
-    FOR             reduce using rule 9 (expression -> NUMBER .)
-    $end            reduce using rule 9 (expression -> NUMBER .)
-    RBRACKET        reduce using rule 9 (expression -> NUMBER .)
-    NUMBER          reduce using rule 9 (expression -> NUMBER .)
-    BOOLEAN_VAR     reduce using rule 9 (expression -> NUMBER .)
-    NOT             reduce using rule 9 (expression -> NUMBER .)
-    SQRT            reduce using rule 9 (expression -> NUMBER .)
-    NEQ             reduce using rule 9 (expression -> NUMBER .)
-    AND             reduce using rule 9 (expression -> NUMBER .)
-    MUL             reduce using rule 9 (expression -> NUMBER .)
-    DIV             reduce using rule 9 (expression -> NUMBER .)
-    ADD             reduce using rule 9 (expression -> NUMBER .)
-    SUB             reduce using rule 9 (expression -> NUMBER .)
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 34
+    array_ref                      shift and go to state 24
 
 state 13
 
-    (10) expression -> ID .
-    (12) expression -> ID . LBRACKET expression RBRACKET
+    (14) expression -> LT . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              reduce using rule 10 (expression -> ID .)
-    FOR             reduce using rule 10 (expression -> ID .)
-    $end            reduce using rule 10 (expression -> ID .)
-    RBRACKET        reduce using rule 10 (expression -> ID .)
-    NUMBER          reduce using rule 10 (expression -> ID .)
-    BOOLEAN_VAR     reduce using rule 10 (expression -> ID .)
-    NOT             reduce using rule 10 (expression -> ID .)
-    SQRT            reduce using rule 10 (expression -> ID .)
-    NEQ             reduce using rule 10 (expression -> ID .)
-    AND             reduce using rule 10 (expression -> ID .)
-    MUL             reduce using rule 10 (expression -> ID .)
-    DIV             reduce using rule 10 (expression -> ID .)
-    ADD             reduce using rule 10 (expression -> ID .)
-    SUB             reduce using rule 10 (expression -> ID .)
-    LBRACKET        shift and go to state 28
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 35
+    array_ref                      shift and go to state 24
 
 state 14
 
-    (11) expression -> BOOLEAN_VAR .
+    (15) expression -> GT . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    FOR             reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    $end            reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    RBRACKET        reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    NUMBER          reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    BOOLEAN_VAR     reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    NOT             reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    SQRT            reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    NEQ             reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    AND             reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    MUL             reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    DIV             reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    ADD             reduce using rule 11 (expression -> BOOLEAN_VAR .)
-    SUB             reduce using rule 11 (expression -> BOOLEAN_VAR .)
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 36
+    array_ref                      shift and go to state 24
 
 state 15
 
-    (13) expression -> unary_op . expression
-    (9) expression -> . NUMBER
-    (10) expression -> . ID
-    (11) expression -> . BOOLEAN_VAR
-    (12) expression -> . ID LBRACKET expression RBRACKET
-    (13) expression -> . unary_op expression
-    (14) expression -> . binary_op expression expression
-    (15) unary_op -> . NOT
-    (16) unary_op -> . SQRT
-    (17) binary_op -> . NEQ
-    (18) binary_op -> . AND
-    (19) binary_op -> . MUL
-    (20) binary_op -> . DIV
-    (21) binary_op -> . ADD
-    (22) binary_op -> . SUB
+    (16) expression -> LE . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    NUMBER          shift and go to state 12
-    ID              shift and go to state 13
-    BOOLEAN_VAR     shift and go to state 14
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
     NOT             shift and go to state 17
     SQRT            shift and go to state 18
-    NEQ             shift and go to state 19
-    AND             shift and go to state 20
-    MUL             shift and go to state 21
-    DIV             shift and go to state 22
-    ADD             shift and go to state 23
-    SUB             shift and go to state 24
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    unary_op                       shift and go to state 15
-    expression                     shift and go to state 29
-    binary_op                      shift and go to state 16
+    expression                     shift and go to state 37
+    array_ref                      shift and go to state 24
 
 state 16
 
-    (14) expression -> binary_op . expression expression
-    (9) expression -> . NUMBER
-    (10) expression -> . ID
-    (11) expression -> . BOOLEAN_VAR
-    (12) expression -> . ID LBRACKET expression RBRACKET
-    (13) expression -> . unary_op expression
-    (14) expression -> . binary_op expression expression
-    (15) unary_op -> . NOT
-    (16) unary_op -> . SQRT
-    (17) binary_op -> . NEQ
-    (18) binary_op -> . AND
-    (19) binary_op -> . MUL
-    (20) binary_op -> . DIV
-    (21) binary_op -> . ADD
-    (22) binary_op -> . SUB
+    (17) expression -> GE . expression expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    NUMBER          shift and go to state 12
-    ID              shift and go to state 13
-    BOOLEAN_VAR     shift and go to state 14
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
     NOT             shift and go to state 17
     SQRT            shift and go to state 18
-    NEQ             shift and go to state 19
-    AND             shift and go to state 20
-    MUL             shift and go to state 21
-    DIV             shift and go to state 22
-    ADD             shift and go to state 23
-    SUB             shift and go to state 24
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    binary_op                      shift and go to state 16
-    expression                     shift and go to state 30
-    unary_op                       shift and go to state 15
+    expression                     shift and go to state 38
+    array_ref                      shift and go to state 24
 
 state 17
 
-    (15) unary_op -> NOT .
+    (18) expression -> NOT . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    NUMBER          reduce using rule 15 (unary_op -> NOT .)
-    ID              reduce using rule 15 (unary_op -> NOT .)
-    BOOLEAN_VAR     reduce using rule 15 (unary_op -> NOT .)
-    NOT             reduce using rule 15 (unary_op -> NOT .)
-    SQRT            reduce using rule 15 (unary_op -> NOT .)
-    NEQ             reduce using rule 15 (unary_op -> NOT .)
-    AND             reduce using rule 15 (unary_op -> NOT .)
-    MUL             reduce using rule 15 (unary_op -> NOT .)
-    DIV             reduce using rule 15 (unary_op -> NOT .)
-    ADD             reduce using rule 15 (unary_op -> NOT .)
-    SUB             reduce using rule 15 (unary_op -> NOT .)
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 39
+    array_ref                      shift and go to state 24
 
 state 18
 
-    (16) unary_op -> SQRT .
+    (19) expression -> SQRT . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    NUMBER          reduce using rule 16 (unary_op -> SQRT .)
-    ID              reduce using rule 16 (unary_op -> SQRT .)
-    BOOLEAN_VAR     reduce using rule 16 (unary_op -> SQRT .)
-    NOT             reduce using rule 16 (unary_op -> SQRT .)
-    SQRT            reduce using rule 16 (unary_op -> SQRT .)
-    NEQ             reduce using rule 16 (unary_op -> SQRT .)
-    AND             reduce using rule 16 (unary_op -> SQRT .)
-    MUL             reduce using rule 16 (unary_op -> SQRT .)
-    DIV             reduce using rule 16 (unary_op -> SQRT .)
-    ADD             reduce using rule 16 (unary_op -> SQRT .)
-    SUB             reduce using rule 16 (unary_op -> SQRT .)
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 40
+    array_ref                      shift and go to state 24
 
 state 19
 
-    (17) binary_op -> NEQ .
+    (20) expression -> ID . ASSIGN expression
+    (21) expression -> ID .
+    (27) array_ref -> ID . LBRACKET expression RBRACKET
 
-    NUMBER          reduce using rule 17 (binary_op -> NEQ .)
-    ID              reduce using rule 17 (binary_op -> NEQ .)
-    BOOLEAN_VAR     reduce using rule 17 (binary_op -> NEQ .)
-    NOT             reduce using rule 17 (binary_op -> NEQ .)
-    SQRT            reduce using rule 17 (binary_op -> NEQ .)
-    NEQ             reduce using rule 17 (binary_op -> NEQ .)
-    AND             reduce using rule 17 (binary_op -> NEQ .)
-    MUL             reduce using rule 17 (binary_op -> NEQ .)
-    DIV             reduce using rule 17 (binary_op -> NEQ .)
-    ADD             reduce using rule 17 (binary_op -> NEQ .)
-    SUB             reduce using rule 17 (binary_op -> NEQ .)
+    ASSIGN          shift and go to state 41
+    FOR             reduce using rule 21 (expression -> ID .)
+    ADD             reduce using rule 21 (expression -> ID .)
+    SUB             reduce using rule 21 (expression -> ID .)
+    MUL             reduce using rule 21 (expression -> ID .)
+    DIV             reduce using rule 21 (expression -> ID .)
+    AND             reduce using rule 21 (expression -> ID .)
+    OR              reduce using rule 21 (expression -> ID .)
+    EQ              reduce using rule 21 (expression -> ID .)
+    NE              reduce using rule 21 (expression -> ID .)
+    LT              reduce using rule 21 (expression -> ID .)
+    GT              reduce using rule 21 (expression -> ID .)
+    LE              reduce using rule 21 (expression -> ID .)
+    GE              reduce using rule 21 (expression -> ID .)
+    NOT             reduce using rule 21 (expression -> ID .)
+    SQRT            reduce using rule 21 (expression -> ID .)
+    ID              reduce using rule 21 (expression -> ID .)
+    INTEGER_CONST   reduce using rule 21 (expression -> ID .)
+    REAL_CONST      reduce using rule 21 (expression -> ID .)
+    TRUE            reduce using rule 21 (expression -> ID .)
+    FALSE           reduce using rule 21 (expression -> ID .)
+    RBRACKET        reduce using rule 21 (expression -> ID .)
+    $end            reduce using rule 21 (expression -> ID .)
+    LBRACKET        shift and go to state 42
 
 
 state 20
 
-    (18) binary_op -> AND .
+    (22) expression -> INTEGER_CONST .
 
-    NUMBER          reduce using rule 18 (binary_op -> AND .)
-    ID              reduce using rule 18 (binary_op -> AND .)
-    BOOLEAN_VAR     reduce using rule 18 (binary_op -> AND .)
-    NOT             reduce using rule 18 (binary_op -> AND .)
-    SQRT            reduce using rule 18 (binary_op -> AND .)
-    NEQ             reduce using rule 18 (binary_op -> AND .)
-    AND             reduce using rule 18 (binary_op -> AND .)
-    MUL             reduce using rule 18 (binary_op -> AND .)
-    DIV             reduce using rule 18 (binary_op -> AND .)
-    ADD             reduce using rule 18 (binary_op -> AND .)
-    SUB             reduce using rule 18 (binary_op -> AND .)
+    FOR             reduce using rule 22 (expression -> INTEGER_CONST .)
+    ADD             reduce using rule 22 (expression -> INTEGER_CONST .)
+    SUB             reduce using rule 22 (expression -> INTEGER_CONST .)
+    MUL             reduce using rule 22 (expression -> INTEGER_CONST .)
+    DIV             reduce using rule 22 (expression -> INTEGER_CONST .)
+    AND             reduce using rule 22 (expression -> INTEGER_CONST .)
+    OR              reduce using rule 22 (expression -> INTEGER_CONST .)
+    EQ              reduce using rule 22 (expression -> INTEGER_CONST .)
+    NE              reduce using rule 22 (expression -> INTEGER_CONST .)
+    LT              reduce using rule 22 (expression -> INTEGER_CONST .)
+    GT              reduce using rule 22 (expression -> INTEGER_CONST .)
+    LE              reduce using rule 22 (expression -> INTEGER_CONST .)
+    GE              reduce using rule 22 (expression -> INTEGER_CONST .)
+    NOT             reduce using rule 22 (expression -> INTEGER_CONST .)
+    SQRT            reduce using rule 22 (expression -> INTEGER_CONST .)
+    ID              reduce using rule 22 (expression -> INTEGER_CONST .)
+    INTEGER_CONST   reduce using rule 22 (expression -> INTEGER_CONST .)
+    REAL_CONST      reduce using rule 22 (expression -> INTEGER_CONST .)
+    TRUE            reduce using rule 22 (expression -> INTEGER_CONST .)
+    FALSE           reduce using rule 22 (expression -> INTEGER_CONST .)
+    RBRACKET        reduce using rule 22 (expression -> INTEGER_CONST .)
+    $end            reduce using rule 22 (expression -> INTEGER_CONST .)
 
 
 state 21
 
-    (19) binary_op -> MUL .
+    (23) expression -> REAL_CONST .
 
-    NUMBER          reduce using rule 19 (binary_op -> MUL .)
-    ID              reduce using rule 19 (binary_op -> MUL .)
-    BOOLEAN_VAR     reduce using rule 19 (binary_op -> MUL .)
-    NOT             reduce using rule 19 (binary_op -> MUL .)
-    SQRT            reduce using rule 19 (binary_op -> MUL .)
-    NEQ             reduce using rule 19 (binary_op -> MUL .)
-    AND             reduce using rule 19 (binary_op -> MUL .)
-    MUL             reduce using rule 19 (binary_op -> MUL .)
-    DIV             reduce using rule 19 (binary_op -> MUL .)
-    ADD             reduce using rule 19 (binary_op -> MUL .)
-    SUB             reduce using rule 19 (binary_op -> MUL .)
+    FOR             reduce using rule 23 (expression -> REAL_CONST .)
+    ADD             reduce using rule 23 (expression -> REAL_CONST .)
+    SUB             reduce using rule 23 (expression -> REAL_CONST .)
+    MUL             reduce using rule 23 (expression -> REAL_CONST .)
+    DIV             reduce using rule 23 (expression -> REAL_CONST .)
+    AND             reduce using rule 23 (expression -> REAL_CONST .)
+    OR              reduce using rule 23 (expression -> REAL_CONST .)
+    EQ              reduce using rule 23 (expression -> REAL_CONST .)
+    NE              reduce using rule 23 (expression -> REAL_CONST .)
+    LT              reduce using rule 23 (expression -> REAL_CONST .)
+    GT              reduce using rule 23 (expression -> REAL_CONST .)
+    LE              reduce using rule 23 (expression -> REAL_CONST .)
+    GE              reduce using rule 23 (expression -> REAL_CONST .)
+    NOT             reduce using rule 23 (expression -> REAL_CONST .)
+    SQRT            reduce using rule 23 (expression -> REAL_CONST .)
+    ID              reduce using rule 23 (expression -> REAL_CONST .)
+    INTEGER_CONST   reduce using rule 23 (expression -> REAL_CONST .)
+    REAL_CONST      reduce using rule 23 (expression -> REAL_CONST .)
+    TRUE            reduce using rule 23 (expression -> REAL_CONST .)
+    FALSE           reduce using rule 23 (expression -> REAL_CONST .)
+    RBRACKET        reduce using rule 23 (expression -> REAL_CONST .)
+    $end            reduce using rule 23 (expression -> REAL_CONST .)
 
 
 state 22
 
-    (20) binary_op -> DIV .
+    (24) expression -> TRUE .
 
-    NUMBER          reduce using rule 20 (binary_op -> DIV .)
-    ID              reduce using rule 20 (binary_op -> DIV .)
-    BOOLEAN_VAR     reduce using rule 20 (binary_op -> DIV .)
-    NOT             reduce using rule 20 (binary_op -> DIV .)
-    SQRT            reduce using rule 20 (binary_op -> DIV .)
-    NEQ             reduce using rule 20 (binary_op -> DIV .)
-    AND             reduce using rule 20 (binary_op -> DIV .)
-    MUL             reduce using rule 20 (binary_op -> DIV .)
-    DIV             reduce using rule 20 (binary_op -> DIV .)
-    ADD             reduce using rule 20 (binary_op -> DIV .)
-    SUB             reduce using rule 20 (binary_op -> DIV .)
+    FOR             reduce using rule 24 (expression -> TRUE .)
+    ADD             reduce using rule 24 (expression -> TRUE .)
+    SUB             reduce using rule 24 (expression -> TRUE .)
+    MUL             reduce using rule 24 (expression -> TRUE .)
+    DIV             reduce using rule 24 (expression -> TRUE .)
+    AND             reduce using rule 24 (expression -> TRUE .)
+    OR              reduce using rule 24 (expression -> TRUE .)
+    EQ              reduce using rule 24 (expression -> TRUE .)
+    NE              reduce using rule 24 (expression -> TRUE .)
+    LT              reduce using rule 24 (expression -> TRUE .)
+    GT              reduce using rule 24 (expression -> TRUE .)
+    LE              reduce using rule 24 (expression -> TRUE .)
+    GE              reduce using rule 24 (expression -> TRUE .)
+    NOT             reduce using rule 24 (expression -> TRUE .)
+    SQRT            reduce using rule 24 (expression -> TRUE .)
+    ID              reduce using rule 24 (expression -> TRUE .)
+    INTEGER_CONST   reduce using rule 24 (expression -> TRUE .)
+    REAL_CONST      reduce using rule 24 (expression -> TRUE .)
+    TRUE            reduce using rule 24 (expression -> TRUE .)
+    FALSE           reduce using rule 24 (expression -> TRUE .)
+    RBRACKET        reduce using rule 24 (expression -> TRUE .)
+    $end            reduce using rule 24 (expression -> TRUE .)
 
 
 state 23
 
-    (21) binary_op -> ADD .
+    (25) expression -> FALSE .
 
-    NUMBER          reduce using rule 21 (binary_op -> ADD .)
-    ID              reduce using rule 21 (binary_op -> ADD .)
-    BOOLEAN_VAR     reduce using rule 21 (binary_op -> ADD .)
-    NOT             reduce using rule 21 (binary_op -> ADD .)
-    SQRT            reduce using rule 21 (binary_op -> ADD .)
-    NEQ             reduce using rule 21 (binary_op -> ADD .)
-    AND             reduce using rule 21 (binary_op -> ADD .)
-    MUL             reduce using rule 21 (binary_op -> ADD .)
-    DIV             reduce using rule 21 (binary_op -> ADD .)
-    ADD             reduce using rule 21 (binary_op -> ADD .)
-    SUB             reduce using rule 21 (binary_op -> ADD .)
+    FOR             reduce using rule 25 (expression -> FALSE .)
+    ADD             reduce using rule 25 (expression -> FALSE .)
+    SUB             reduce using rule 25 (expression -> FALSE .)
+    MUL             reduce using rule 25 (expression -> FALSE .)
+    DIV             reduce using rule 25 (expression -> FALSE .)
+    AND             reduce using rule 25 (expression -> FALSE .)
+    OR              reduce using rule 25 (expression -> FALSE .)
+    EQ              reduce using rule 25 (expression -> FALSE .)
+    NE              reduce using rule 25 (expression -> FALSE .)
+    LT              reduce using rule 25 (expression -> FALSE .)
+    GT              reduce using rule 25 (expression -> FALSE .)
+    LE              reduce using rule 25 (expression -> FALSE .)
+    GE              reduce using rule 25 (expression -> FALSE .)
+    NOT             reduce using rule 25 (expression -> FALSE .)
+    SQRT            reduce using rule 25 (expression -> FALSE .)
+    ID              reduce using rule 25 (expression -> FALSE .)
+    INTEGER_CONST   reduce using rule 25 (expression -> FALSE .)
+    REAL_CONST      reduce using rule 25 (expression -> FALSE .)
+    TRUE            reduce using rule 25 (expression -> FALSE .)
+    FALSE           reduce using rule 25 (expression -> FALSE .)
+    RBRACKET        reduce using rule 25 (expression -> FALSE .)
+    $end            reduce using rule 25 (expression -> FALSE .)
 
 
 state 24
 
-    (22) binary_op -> SUB .
+    (26) expression -> array_ref .
 
-    NUMBER          reduce using rule 22 (binary_op -> SUB .)
-    ID              reduce using rule 22 (binary_op -> SUB .)
-    BOOLEAN_VAR     reduce using rule 22 (binary_op -> SUB .)
-    NOT             reduce using rule 22 (binary_op -> SUB .)
-    SQRT            reduce using rule 22 (binary_op -> SUB .)
-    NEQ             reduce using rule 22 (binary_op -> SUB .)
-    AND             reduce using rule 22 (binary_op -> SUB .)
-    MUL             reduce using rule 22 (binary_op -> SUB .)
-    DIV             reduce using rule 22 (binary_op -> SUB .)
-    ADD             reduce using rule 22 (binary_op -> SUB .)
-    SUB             reduce using rule 22 (binary_op -> SUB .)
+    FOR             reduce using rule 26 (expression -> array_ref .)
+    ADD             reduce using rule 26 (expression -> array_ref .)
+    SUB             reduce using rule 26 (expression -> array_ref .)
+    MUL             reduce using rule 26 (expression -> array_ref .)
+    DIV             reduce using rule 26 (expression -> array_ref .)
+    AND             reduce using rule 26 (expression -> array_ref .)
+    OR              reduce using rule 26 (expression -> array_ref .)
+    EQ              reduce using rule 26 (expression -> array_ref .)
+    NE              reduce using rule 26 (expression -> array_ref .)
+    LT              reduce using rule 26 (expression -> array_ref .)
+    GT              reduce using rule 26 (expression -> array_ref .)
+    LE              reduce using rule 26 (expression -> array_ref .)
+    GE              reduce using rule 26 (expression -> array_ref .)
+    NOT             reduce using rule 26 (expression -> array_ref .)
+    SQRT            reduce using rule 26 (expression -> array_ref .)
+    ID              reduce using rule 26 (expression -> array_ref .)
+    INTEGER_CONST   reduce using rule 26 (expression -> array_ref .)
+    REAL_CONST      reduce using rule 26 (expression -> array_ref .)
+    TRUE            reduce using rule 26 (expression -> array_ref .)
+    FALSE           reduce using rule 26 (expression -> array_ref .)
+    RBRACKET        reduce using rule 26 (expression -> array_ref .)
+    $end            reduce using rule 26 (expression -> array_ref .)
 
 
 state 25
 
-    (7) assign_statement -> ID EQUALS expression .
+    (3) for_list -> for_stmt for_list .
 
-    FOR             reduce using rule 7 (assign_statement -> ID EQUALS expression .)
-    ID              reduce using rule 7 (assign_statement -> ID EQUALS expression .)
-    $end            reduce using rule 7 (assign_statement -> ID EQUALS expression .)
+    $end            reduce using rule 3 (for_list -> for_stmt for_list .)
 
 
 state 26
 
-    (8) assign_statement -> ID LBRACKET expression . RBRACKET EQUALS expression
+    (4) for_stmt -> expression FOR . expression expression assign_stmt
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    RBRACKET        shift and go to state 31
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 43
+    array_ref                      shift and go to state 24
 
 state 27
 
-    (6) for_statement -> assign_statement FOR expression assign_statement . assign_statement
-    (7) assign_statement -> . ID EQUALS expression
-    (8) assign_statement -> . ID LBRACKET expression RBRACKET EQUALS expression
+    (6) expression -> ADD expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              shift and go to state 6
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    assign_statement               shift and go to state 32
+    expression                     shift and go to state 44
+    array_ref                      shift and go to state 24
 
 state 28
 
-    (12) expression -> ID LBRACKET . expression RBRACKET
-    (9) expression -> . NUMBER
-    (10) expression -> . ID
-    (11) expression -> . BOOLEAN_VAR
-    (12) expression -> . ID LBRACKET expression RBRACKET
-    (13) expression -> . unary_op expression
-    (14) expression -> . binary_op expression expression
-    (15) unary_op -> . NOT
-    (16) unary_op -> . SQRT
-    (17) binary_op -> . NEQ
-    (18) binary_op -> . AND
-    (19) binary_op -> . MUL
-    (20) binary_op -> . DIV
-    (21) binary_op -> . ADD
-    (22) binary_op -> . SUB
+    (7) expression -> SUB expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    NUMBER          shift and go to state 12
-    ID              shift and go to state 13
-    BOOLEAN_VAR     shift and go to state 14
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
     NOT             shift and go to state 17
     SQRT            shift and go to state 18
-    NEQ             shift and go to state 19
-    AND             shift and go to state 20
-    MUL             shift and go to state 21
-    DIV             shift and go to state 22
-    ADD             shift and go to state 23
-    SUB             shift and go to state 24
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 33
-    unary_op                       shift and go to state 15
-    binary_op                      shift and go to state 16
+    expression                     shift and go to state 45
+    array_ref                      shift and go to state 24
 
 state 29
 
-    (13) expression -> unary_op expression .
+    (8) expression -> MUL expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              reduce using rule 13 (expression -> unary_op expression .)
-    FOR             reduce using rule 13 (expression -> unary_op expression .)
-    $end            reduce using rule 13 (expression -> unary_op expression .)
-    RBRACKET        reduce using rule 13 (expression -> unary_op expression .)
-    NUMBER          reduce using rule 13 (expression -> unary_op expression .)
-    BOOLEAN_VAR     reduce using rule 13 (expression -> unary_op expression .)
-    NOT             reduce using rule 13 (expression -> unary_op expression .)
-    SQRT            reduce using rule 13 (expression -> unary_op expression .)
-    NEQ             reduce using rule 13 (expression -> unary_op expression .)
-    AND             reduce using rule 13 (expression -> unary_op expression .)
-    MUL             reduce using rule 13 (expression -> unary_op expression .)
-    DIV             reduce using rule 13 (expression -> unary_op expression .)
-    ADD             reduce using rule 13 (expression -> unary_op expression .)
-    SUB             reduce using rule 13 (expression -> unary_op expression .)
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 46
+    array_ref                      shift and go to state 24
 
 state 30
 
-    (14) expression -> binary_op expression . expression
-    (9) expression -> . NUMBER
-    (10) expression -> . ID
-    (11) expression -> . BOOLEAN_VAR
-    (12) expression -> . ID LBRACKET expression RBRACKET
-    (13) expression -> . unary_op expression
-    (14) expression -> . binary_op expression expression
-    (15) unary_op -> . NOT
-    (16) unary_op -> . SQRT
-    (17) binary_op -> . NEQ
-    (18) binary_op -> . AND
-    (19) binary_op -> . MUL
-    (20) binary_op -> . DIV
-    (21) binary_op -> . ADD
-    (22) binary_op -> . SUB
+    (9) expression -> DIV expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    NUMBER          shift and go to state 12
-    ID              shift and go to state 13
-    BOOLEAN_VAR     shift and go to state 14
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
     NOT             shift and go to state 17
     SQRT            shift and go to state 18
-    NEQ             shift and go to state 19
-    AND             shift and go to state 20
-    MUL             shift and go to state 21
-    DIV             shift and go to state 22
-    ADD             shift and go to state 23
-    SUB             shift and go to state 24
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    binary_op                      shift and go to state 16
-    expression                     shift and go to state 34
-    unary_op                       shift and go to state 15
+    expression                     shift and go to state 47
+    array_ref                      shift and go to state 24
 
 state 31
 
-    (8) assign_statement -> ID LBRACKET expression RBRACKET . EQUALS expression
+    (10) expression -> AND expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    EQUALS          shift and go to state 35
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 48
+    array_ref                      shift and go to state 24
 
 state 32
 
-    (6) for_statement -> assign_statement FOR expression assign_statement assign_statement .
+    (11) expression -> OR expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              reduce using rule 6 (for_statement -> assign_statement FOR expression assign_statement assign_statement .)
-    $end            reduce using rule 6 (for_statement -> assign_statement FOR expression assign_statement assign_statement .)
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 49
+    array_ref                      shift and go to state 24
 
 state 33
 
-    (12) expression -> ID LBRACKET expression . RBRACKET
+    (12) expression -> EQ expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    RBRACKET        shift and go to state 36
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 50
+    array_ref                      shift and go to state 24
 
 state 34
 
-    (14) expression -> binary_op expression expression .
+    (13) expression -> NE expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              reduce using rule 14 (expression -> binary_op expression expression .)
-    FOR             reduce using rule 14 (expression -> binary_op expression expression .)
-    $end            reduce using rule 14 (expression -> binary_op expression expression .)
-    RBRACKET        reduce using rule 14 (expression -> binary_op expression expression .)
-    NUMBER          reduce using rule 14 (expression -> binary_op expression expression .)
-    BOOLEAN_VAR     reduce using rule 14 (expression -> binary_op expression expression .)
-    NOT             reduce using rule 14 (expression -> binary_op expression expression .)
-    SQRT            reduce using rule 14 (expression -> binary_op expression expression .)
-    NEQ             reduce using rule 14 (expression -> binary_op expression expression .)
-    AND             reduce using rule 14 (expression -> binary_op expression expression .)
-    MUL             reduce using rule 14 (expression -> binary_op expression expression .)
-    DIV             reduce using rule 14 (expression -> binary_op expression expression .)
-    ADD             reduce using rule 14 (expression -> binary_op expression expression .)
-    SUB             reduce using rule 14 (expression -> binary_op expression expression .)
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 51
+    array_ref                      shift and go to state 24
 
 state 35
 
-    (8) assign_statement -> ID LBRACKET expression RBRACKET EQUALS . expression
-    (9) expression -> . NUMBER
-    (10) expression -> . ID
-    (11) expression -> . BOOLEAN_VAR
-    (12) expression -> . ID LBRACKET expression RBRACKET
-    (13) expression -> . unary_op expression
-    (14) expression -> . binary_op expression expression
-    (15) unary_op -> . NOT
-    (16) unary_op -> . SQRT
-    (17) binary_op -> . NEQ
-    (18) binary_op -> . AND
-    (19) binary_op -> . MUL
-    (20) binary_op -> . DIV
-    (21) binary_op -> . ADD
-    (22) binary_op -> . SUB
+    (14) expression -> LT expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    NUMBER          shift and go to state 12
-    ID              shift and go to state 13
-    BOOLEAN_VAR     shift and go to state 14
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
     NOT             shift and go to state 17
     SQRT            shift and go to state 18
-    NEQ             shift and go to state 19
-    AND             shift and go to state 20
-    MUL             shift and go to state 21
-    DIV             shift and go to state 22
-    ADD             shift and go to state 23
-    SUB             shift and go to state 24
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 37
-    unary_op                       shift and go to state 15
-    binary_op                      shift and go to state 16
+    expression                     shift and go to state 52
+    array_ref                      shift and go to state 24
 
 state 36
 
-    (12) expression -> ID LBRACKET expression RBRACKET .
+    (15) expression -> GT expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    ID              reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    FOR             reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    $end            reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    RBRACKET        reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    NUMBER          reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    BOOLEAN_VAR     reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    NOT             reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    SQRT            reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    NEQ             reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    AND             reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    MUL             reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    DIV             reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    ADD             reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
-    SUB             reduce using rule 12 (expression -> ID LBRACKET expression RBRACKET .)
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expression                     shift and go to state 53
+    array_ref                      shift and go to state 24
 
 state 37
 
-    (8) assign_statement -> ID LBRACKET expression RBRACKET EQUALS expression .
+    (16) expression -> LE expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
 
-    FOR             reduce using rule 8 (assign_statement -> ID LBRACKET expression RBRACKET EQUALS expression .)
-    ID              reduce using rule 8 (assign_statement -> ID LBRACKET expression RBRACKET EQUALS expression .)
-    $end            reduce using rule 8 (assign_statement -> ID LBRACKET expression RBRACKET EQUALS expression .)
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expression                     shift and go to state 54
+    array_ref                      shift and go to state 24
+
+state 38
+
+    (17) expression -> GE expression . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
+
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expression                     shift and go to state 55
+    array_ref                      shift and go to state 24
+
+state 39
+
+    (18) expression -> NOT expression .
+
+    FOR             reduce using rule 18 (expression -> NOT expression .)
+    ADD             reduce using rule 18 (expression -> NOT expression .)
+    SUB             reduce using rule 18 (expression -> NOT expression .)
+    MUL             reduce using rule 18 (expression -> NOT expression .)
+    DIV             reduce using rule 18 (expression -> NOT expression .)
+    AND             reduce using rule 18 (expression -> NOT expression .)
+    OR              reduce using rule 18 (expression -> NOT expression .)
+    EQ              reduce using rule 18 (expression -> NOT expression .)
+    NE              reduce using rule 18 (expression -> NOT expression .)
+    LT              reduce using rule 18 (expression -> NOT expression .)
+    GT              reduce using rule 18 (expression -> NOT expression .)
+    LE              reduce using rule 18 (expression -> NOT expression .)
+    GE              reduce using rule 18 (expression -> NOT expression .)
+    NOT             reduce using rule 18 (expression -> NOT expression .)
+    SQRT            reduce using rule 18 (expression -> NOT expression .)
+    ID              reduce using rule 18 (expression -> NOT expression .)
+    INTEGER_CONST   reduce using rule 18 (expression -> NOT expression .)
+    REAL_CONST      reduce using rule 18 (expression -> NOT expression .)
+    TRUE            reduce using rule 18 (expression -> NOT expression .)
+    FALSE           reduce using rule 18 (expression -> NOT expression .)
+    RBRACKET        reduce using rule 18 (expression -> NOT expression .)
+    $end            reduce using rule 18 (expression -> NOT expression .)
+
+
+state 40
+
+    (19) expression -> SQRT expression .
+
+    FOR             reduce using rule 19 (expression -> SQRT expression .)
+    ADD             reduce using rule 19 (expression -> SQRT expression .)
+    SUB             reduce using rule 19 (expression -> SQRT expression .)
+    MUL             reduce using rule 19 (expression -> SQRT expression .)
+    DIV             reduce using rule 19 (expression -> SQRT expression .)
+    AND             reduce using rule 19 (expression -> SQRT expression .)
+    OR              reduce using rule 19 (expression -> SQRT expression .)
+    EQ              reduce using rule 19 (expression -> SQRT expression .)
+    NE              reduce using rule 19 (expression -> SQRT expression .)
+    LT              reduce using rule 19 (expression -> SQRT expression .)
+    GT              reduce using rule 19 (expression -> SQRT expression .)
+    LE              reduce using rule 19 (expression -> SQRT expression .)
+    GE              reduce using rule 19 (expression -> SQRT expression .)
+    NOT             reduce using rule 19 (expression -> SQRT expression .)
+    SQRT            reduce using rule 19 (expression -> SQRT expression .)
+    ID              reduce using rule 19 (expression -> SQRT expression .)
+    INTEGER_CONST   reduce using rule 19 (expression -> SQRT expression .)
+    REAL_CONST      reduce using rule 19 (expression -> SQRT expression .)
+    TRUE            reduce using rule 19 (expression -> SQRT expression .)
+    FALSE           reduce using rule 19 (expression -> SQRT expression .)
+    RBRACKET        reduce using rule 19 (expression -> SQRT expression .)
+    $end            reduce using rule 19 (expression -> SQRT expression .)
+
+
+state 41
+
+    (20) expression -> ID ASSIGN . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
+
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expression                     shift and go to state 56
+    array_ref                      shift and go to state 24
+
+state 42
+
+    (27) array_ref -> ID LBRACKET . expression RBRACKET
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
+
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expression                     shift and go to state 57
+    array_ref                      shift and go to state 24
+
+state 43
+
+    (4) for_stmt -> expression FOR expression . expression assign_stmt
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
+
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expression                     shift and go to state 58
+    array_ref                      shift and go to state 24
+
+state 44
+
+    (6) expression -> ADD expression expression .
+
+    FOR             reduce using rule 6 (expression -> ADD expression expression .)
+    ADD             reduce using rule 6 (expression -> ADD expression expression .)
+    SUB             reduce using rule 6 (expression -> ADD expression expression .)
+    MUL             reduce using rule 6 (expression -> ADD expression expression .)
+    DIV             reduce using rule 6 (expression -> ADD expression expression .)
+    AND             reduce using rule 6 (expression -> ADD expression expression .)
+    OR              reduce using rule 6 (expression -> ADD expression expression .)
+    EQ              reduce using rule 6 (expression -> ADD expression expression .)
+    NE              reduce using rule 6 (expression -> ADD expression expression .)
+    LT              reduce using rule 6 (expression -> ADD expression expression .)
+    GT              reduce using rule 6 (expression -> ADD expression expression .)
+    LE              reduce using rule 6 (expression -> ADD expression expression .)
+    GE              reduce using rule 6 (expression -> ADD expression expression .)
+    NOT             reduce using rule 6 (expression -> ADD expression expression .)
+    SQRT            reduce using rule 6 (expression -> ADD expression expression .)
+    ID              reduce using rule 6 (expression -> ADD expression expression .)
+    INTEGER_CONST   reduce using rule 6 (expression -> ADD expression expression .)
+    REAL_CONST      reduce using rule 6 (expression -> ADD expression expression .)
+    TRUE            reduce using rule 6 (expression -> ADD expression expression .)
+    FALSE           reduce using rule 6 (expression -> ADD expression expression .)
+    RBRACKET        reduce using rule 6 (expression -> ADD expression expression .)
+    $end            reduce using rule 6 (expression -> ADD expression expression .)
+
+
+state 45
+
+    (7) expression -> SUB expression expression .
+
+    FOR             reduce using rule 7 (expression -> SUB expression expression .)
+    ADD             reduce using rule 7 (expression -> SUB expression expression .)
+    SUB             reduce using rule 7 (expression -> SUB expression expression .)
+    MUL             reduce using rule 7 (expression -> SUB expression expression .)
+    DIV             reduce using rule 7 (expression -> SUB expression expression .)
+    AND             reduce using rule 7 (expression -> SUB expression expression .)
+    OR              reduce using rule 7 (expression -> SUB expression expression .)
+    EQ              reduce using rule 7 (expression -> SUB expression expression .)
+    NE              reduce using rule 7 (expression -> SUB expression expression .)
+    LT              reduce using rule 7 (expression -> SUB expression expression .)
+    GT              reduce using rule 7 (expression -> SUB expression expression .)
+    LE              reduce using rule 7 (expression -> SUB expression expression .)
+    GE              reduce using rule 7 (expression -> SUB expression expression .)
+    NOT             reduce using rule 7 (expression -> SUB expression expression .)
+    SQRT            reduce using rule 7 (expression -> SUB expression expression .)
+    ID              reduce using rule 7 (expression -> SUB expression expression .)
+    INTEGER_CONST   reduce using rule 7 (expression -> SUB expression expression .)
+    REAL_CONST      reduce using rule 7 (expression -> SUB expression expression .)
+    TRUE            reduce using rule 7 (expression -> SUB expression expression .)
+    FALSE           reduce using rule 7 (expression -> SUB expression expression .)
+    RBRACKET        reduce using rule 7 (expression -> SUB expression expression .)
+    $end            reduce using rule 7 (expression -> SUB expression expression .)
+
+
+state 46
+
+    (8) expression -> MUL expression expression .
+
+    FOR             reduce using rule 8 (expression -> MUL expression expression .)
+    ADD             reduce using rule 8 (expression -> MUL expression expression .)
+    SUB             reduce using rule 8 (expression -> MUL expression expression .)
+    MUL             reduce using rule 8 (expression -> MUL expression expression .)
+    DIV             reduce using rule 8 (expression -> MUL expression expression .)
+    AND             reduce using rule 8 (expression -> MUL expression expression .)
+    OR              reduce using rule 8 (expression -> MUL expression expression .)
+    EQ              reduce using rule 8 (expression -> MUL expression expression .)
+    NE              reduce using rule 8 (expression -> MUL expression expression .)
+    LT              reduce using rule 8 (expression -> MUL expression expression .)
+    GT              reduce using rule 8 (expression -> MUL expression expression .)
+    LE              reduce using rule 8 (expression -> MUL expression expression .)
+    GE              reduce using rule 8 (expression -> MUL expression expression .)
+    NOT             reduce using rule 8 (expression -> MUL expression expression .)
+    SQRT            reduce using rule 8 (expression -> MUL expression expression .)
+    ID              reduce using rule 8 (expression -> MUL expression expression .)
+    INTEGER_CONST   reduce using rule 8 (expression -> MUL expression expression .)
+    REAL_CONST      reduce using rule 8 (expression -> MUL expression expression .)
+    TRUE            reduce using rule 8 (expression -> MUL expression expression .)
+    FALSE           reduce using rule 8 (expression -> MUL expression expression .)
+    RBRACKET        reduce using rule 8 (expression -> MUL expression expression .)
+    $end            reduce using rule 8 (expression -> MUL expression expression .)
+
+
+state 47
+
+    (9) expression -> DIV expression expression .
+
+    FOR             reduce using rule 9 (expression -> DIV expression expression .)
+    ADD             reduce using rule 9 (expression -> DIV expression expression .)
+    SUB             reduce using rule 9 (expression -> DIV expression expression .)
+    MUL             reduce using rule 9 (expression -> DIV expression expression .)
+    DIV             reduce using rule 9 (expression -> DIV expression expression .)
+    AND             reduce using rule 9 (expression -> DIV expression expression .)
+    OR              reduce using rule 9 (expression -> DIV expression expression .)
+    EQ              reduce using rule 9 (expression -> DIV expression expression .)
+    NE              reduce using rule 9 (expression -> DIV expression expression .)
+    LT              reduce using rule 9 (expression -> DIV expression expression .)
+    GT              reduce using rule 9 (expression -> DIV expression expression .)
+    LE              reduce using rule 9 (expression -> DIV expression expression .)
+    GE              reduce using rule 9 (expression -> DIV expression expression .)
+    NOT             reduce using rule 9 (expression -> DIV expression expression .)
+    SQRT            reduce using rule 9 (expression -> DIV expression expression .)
+    ID              reduce using rule 9 (expression -> DIV expression expression .)
+    INTEGER_CONST   reduce using rule 9 (expression -> DIV expression expression .)
+    REAL_CONST      reduce using rule 9 (expression -> DIV expression expression .)
+    TRUE            reduce using rule 9 (expression -> DIV expression expression .)
+    FALSE           reduce using rule 9 (expression -> DIV expression expression .)
+    RBRACKET        reduce using rule 9 (expression -> DIV expression expression .)
+    $end            reduce using rule 9 (expression -> DIV expression expression .)
+
+
+state 48
+
+    (10) expression -> AND expression expression .
+
+    FOR             reduce using rule 10 (expression -> AND expression expression .)
+    ADD             reduce using rule 10 (expression -> AND expression expression .)
+    SUB             reduce using rule 10 (expression -> AND expression expression .)
+    MUL             reduce using rule 10 (expression -> AND expression expression .)
+    DIV             reduce using rule 10 (expression -> AND expression expression .)
+    AND             reduce using rule 10 (expression -> AND expression expression .)
+    OR              reduce using rule 10 (expression -> AND expression expression .)
+    EQ              reduce using rule 10 (expression -> AND expression expression .)
+    NE              reduce using rule 10 (expression -> AND expression expression .)
+    LT              reduce using rule 10 (expression -> AND expression expression .)
+    GT              reduce using rule 10 (expression -> AND expression expression .)
+    LE              reduce using rule 10 (expression -> AND expression expression .)
+    GE              reduce using rule 10 (expression -> AND expression expression .)
+    NOT             reduce using rule 10 (expression -> AND expression expression .)
+    SQRT            reduce using rule 10 (expression -> AND expression expression .)
+    ID              reduce using rule 10 (expression -> AND expression expression .)
+    INTEGER_CONST   reduce using rule 10 (expression -> AND expression expression .)
+    REAL_CONST      reduce using rule 10 (expression -> AND expression expression .)
+    TRUE            reduce using rule 10 (expression -> AND expression expression .)
+    FALSE           reduce using rule 10 (expression -> AND expression expression .)
+    RBRACKET        reduce using rule 10 (expression -> AND expression expression .)
+    $end            reduce using rule 10 (expression -> AND expression expression .)
+
+
+state 49
+
+    (11) expression -> OR expression expression .
+
+    FOR             reduce using rule 11 (expression -> OR expression expression .)
+    ADD             reduce using rule 11 (expression -> OR expression expression .)
+    SUB             reduce using rule 11 (expression -> OR expression expression .)
+    MUL             reduce using rule 11 (expression -> OR expression expression .)
+    DIV             reduce using rule 11 (expression -> OR expression expression .)
+    AND             reduce using rule 11 (expression -> OR expression expression .)
+    OR              reduce using rule 11 (expression -> OR expression expression .)
+    EQ              reduce using rule 11 (expression -> OR expression expression .)
+    NE              reduce using rule 11 (expression -> OR expression expression .)
+    LT              reduce using rule 11 (expression -> OR expression expression .)
+    GT              reduce using rule 11 (expression -> OR expression expression .)
+    LE              reduce using rule 11 (expression -> OR expression expression .)
+    GE              reduce using rule 11 (expression -> OR expression expression .)
+    NOT             reduce using rule 11 (expression -> OR expression expression .)
+    SQRT            reduce using rule 11 (expression -> OR expression expression .)
+    ID              reduce using rule 11 (expression -> OR expression expression .)
+    INTEGER_CONST   reduce using rule 11 (expression -> OR expression expression .)
+    REAL_CONST      reduce using rule 11 (expression -> OR expression expression .)
+    TRUE            reduce using rule 11 (expression -> OR expression expression .)
+    FALSE           reduce using rule 11 (expression -> OR expression expression .)
+    RBRACKET        reduce using rule 11 (expression -> OR expression expression .)
+    $end            reduce using rule 11 (expression -> OR expression expression .)
+
+
+state 50
+
+    (12) expression -> EQ expression expression .
+
+    FOR             reduce using rule 12 (expression -> EQ expression expression .)
+    ADD             reduce using rule 12 (expression -> EQ expression expression .)
+    SUB             reduce using rule 12 (expression -> EQ expression expression .)
+    MUL             reduce using rule 12 (expression -> EQ expression expression .)
+    DIV             reduce using rule 12 (expression -> EQ expression expression .)
+    AND             reduce using rule 12 (expression -> EQ expression expression .)
+    OR              reduce using rule 12 (expression -> EQ expression expression .)
+    EQ              reduce using rule 12 (expression -> EQ expression expression .)
+    NE              reduce using rule 12 (expression -> EQ expression expression .)
+    LT              reduce using rule 12 (expression -> EQ expression expression .)
+    GT              reduce using rule 12 (expression -> EQ expression expression .)
+    LE              reduce using rule 12 (expression -> EQ expression expression .)
+    GE              reduce using rule 12 (expression -> EQ expression expression .)
+    NOT             reduce using rule 12 (expression -> EQ expression expression .)
+    SQRT            reduce using rule 12 (expression -> EQ expression expression .)
+    ID              reduce using rule 12 (expression -> EQ expression expression .)
+    INTEGER_CONST   reduce using rule 12 (expression -> EQ expression expression .)
+    REAL_CONST      reduce using rule 12 (expression -> EQ expression expression .)
+    TRUE            reduce using rule 12 (expression -> EQ expression expression .)
+    FALSE           reduce using rule 12 (expression -> EQ expression expression .)
+    RBRACKET        reduce using rule 12 (expression -> EQ expression expression .)
+    $end            reduce using rule 12 (expression -> EQ expression expression .)
+
+
+state 51
+
+    (13) expression -> NE expression expression .
+
+    FOR             reduce using rule 13 (expression -> NE expression expression .)
+    ADD             reduce using rule 13 (expression -> NE expression expression .)
+    SUB             reduce using rule 13 (expression -> NE expression expression .)
+    MUL             reduce using rule 13 (expression -> NE expression expression .)
+    DIV             reduce using rule 13 (expression -> NE expression expression .)
+    AND             reduce using rule 13 (expression -> NE expression expression .)
+    OR              reduce using rule 13 (expression -> NE expression expression .)
+    EQ              reduce using rule 13 (expression -> NE expression expression .)
+    NE              reduce using rule 13 (expression -> NE expression expression .)
+    LT              reduce using rule 13 (expression -> NE expression expression .)
+    GT              reduce using rule 13 (expression -> NE expression expression .)
+    LE              reduce using rule 13 (expression -> NE expression expression .)
+    GE              reduce using rule 13 (expression -> NE expression expression .)
+    NOT             reduce using rule 13 (expression -> NE expression expression .)
+    SQRT            reduce using rule 13 (expression -> NE expression expression .)
+    ID              reduce using rule 13 (expression -> NE expression expression .)
+    INTEGER_CONST   reduce using rule 13 (expression -> NE expression expression .)
+    REAL_CONST      reduce using rule 13 (expression -> NE expression expression .)
+    TRUE            reduce using rule 13 (expression -> NE expression expression .)
+    FALSE           reduce using rule 13 (expression -> NE expression expression .)
+    RBRACKET        reduce using rule 13 (expression -> NE expression expression .)
+    $end            reduce using rule 13 (expression -> NE expression expression .)
+
+
+state 52
+
+    (14) expression -> LT expression expression .
+
+    FOR             reduce using rule 14 (expression -> LT expression expression .)
+    ADD             reduce using rule 14 (expression -> LT expression expression .)
+    SUB             reduce using rule 14 (expression -> LT expression expression .)
+    MUL             reduce using rule 14 (expression -> LT expression expression .)
+    DIV             reduce using rule 14 (expression -> LT expression expression .)
+    AND             reduce using rule 14 (expression -> LT expression expression .)
+    OR              reduce using rule 14 (expression -> LT expression expression .)
+    EQ              reduce using rule 14 (expression -> LT expression expression .)
+    NE              reduce using rule 14 (expression -> LT expression expression .)
+    LT              reduce using rule 14 (expression -> LT expression expression .)
+    GT              reduce using rule 14 (expression -> LT expression expression .)
+    LE              reduce using rule 14 (expression -> LT expression expression .)
+    GE              reduce using rule 14 (expression -> LT expression expression .)
+    NOT             reduce using rule 14 (expression -> LT expression expression .)
+    SQRT            reduce using rule 14 (expression -> LT expression expression .)
+    ID              reduce using rule 14 (expression -> LT expression expression .)
+    INTEGER_CONST   reduce using rule 14 (expression -> LT expression expression .)
+    REAL_CONST      reduce using rule 14 (expression -> LT expression expression .)
+    TRUE            reduce using rule 14 (expression -> LT expression expression .)
+    FALSE           reduce using rule 14 (expression -> LT expression expression .)
+    RBRACKET        reduce using rule 14 (expression -> LT expression expression .)
+    $end            reduce using rule 14 (expression -> LT expression expression .)
+
+
+state 53
+
+    (15) expression -> GT expression expression .
+
+    FOR             reduce using rule 15 (expression -> GT expression expression .)
+    ADD             reduce using rule 15 (expression -> GT expression expression .)
+    SUB             reduce using rule 15 (expression -> GT expression expression .)
+    MUL             reduce using rule 15 (expression -> GT expression expression .)
+    DIV             reduce using rule 15 (expression -> GT expression expression .)
+    AND             reduce using rule 15 (expression -> GT expression expression .)
+    OR              reduce using rule 15 (expression -> GT expression expression .)
+    EQ              reduce using rule 15 (expression -> GT expression expression .)
+    NE              reduce using rule 15 (expression -> GT expression expression .)
+    LT              reduce using rule 15 (expression -> GT expression expression .)
+    GT              reduce using rule 15 (expression -> GT expression expression .)
+    LE              reduce using rule 15 (expression -> GT expression expression .)
+    GE              reduce using rule 15 (expression -> GT expression expression .)
+    NOT             reduce using rule 15 (expression -> GT expression expression .)
+    SQRT            reduce using rule 15 (expression -> GT expression expression .)
+    ID              reduce using rule 15 (expression -> GT expression expression .)
+    INTEGER_CONST   reduce using rule 15 (expression -> GT expression expression .)
+    REAL_CONST      reduce using rule 15 (expression -> GT expression expression .)
+    TRUE            reduce using rule 15 (expression -> GT expression expression .)
+    FALSE           reduce using rule 15 (expression -> GT expression expression .)
+    RBRACKET        reduce using rule 15 (expression -> GT expression expression .)
+    $end            reduce using rule 15 (expression -> GT expression expression .)
+
+
+state 54
+
+    (16) expression -> LE expression expression .
+
+    FOR             reduce using rule 16 (expression -> LE expression expression .)
+    ADD             reduce using rule 16 (expression -> LE expression expression .)
+    SUB             reduce using rule 16 (expression -> LE expression expression .)
+    MUL             reduce using rule 16 (expression -> LE expression expression .)
+    DIV             reduce using rule 16 (expression -> LE expression expression .)
+    AND             reduce using rule 16 (expression -> LE expression expression .)
+    OR              reduce using rule 16 (expression -> LE expression expression .)
+    EQ              reduce using rule 16 (expression -> LE expression expression .)
+    NE              reduce using rule 16 (expression -> LE expression expression .)
+    LT              reduce using rule 16 (expression -> LE expression expression .)
+    GT              reduce using rule 16 (expression -> LE expression expression .)
+    LE              reduce using rule 16 (expression -> LE expression expression .)
+    GE              reduce using rule 16 (expression -> LE expression expression .)
+    NOT             reduce using rule 16 (expression -> LE expression expression .)
+    SQRT            reduce using rule 16 (expression -> LE expression expression .)
+    ID              reduce using rule 16 (expression -> LE expression expression .)
+    INTEGER_CONST   reduce using rule 16 (expression -> LE expression expression .)
+    REAL_CONST      reduce using rule 16 (expression -> LE expression expression .)
+    TRUE            reduce using rule 16 (expression -> LE expression expression .)
+    FALSE           reduce using rule 16 (expression -> LE expression expression .)
+    RBRACKET        reduce using rule 16 (expression -> LE expression expression .)
+    $end            reduce using rule 16 (expression -> LE expression expression .)
+
+
+state 55
+
+    (17) expression -> GE expression expression .
+
+    FOR             reduce using rule 17 (expression -> GE expression expression .)
+    ADD             reduce using rule 17 (expression -> GE expression expression .)
+    SUB             reduce using rule 17 (expression -> GE expression expression .)
+    MUL             reduce using rule 17 (expression -> GE expression expression .)
+    DIV             reduce using rule 17 (expression -> GE expression expression .)
+    AND             reduce using rule 17 (expression -> GE expression expression .)
+    OR              reduce using rule 17 (expression -> GE expression expression .)
+    EQ              reduce using rule 17 (expression -> GE expression expression .)
+    NE              reduce using rule 17 (expression -> GE expression expression .)
+    LT              reduce using rule 17 (expression -> GE expression expression .)
+    GT              reduce using rule 17 (expression -> GE expression expression .)
+    LE              reduce using rule 17 (expression -> GE expression expression .)
+    GE              reduce using rule 17 (expression -> GE expression expression .)
+    NOT             reduce using rule 17 (expression -> GE expression expression .)
+    SQRT            reduce using rule 17 (expression -> GE expression expression .)
+    ID              reduce using rule 17 (expression -> GE expression expression .)
+    INTEGER_CONST   reduce using rule 17 (expression -> GE expression expression .)
+    REAL_CONST      reduce using rule 17 (expression -> GE expression expression .)
+    TRUE            reduce using rule 17 (expression -> GE expression expression .)
+    FALSE           reduce using rule 17 (expression -> GE expression expression .)
+    RBRACKET        reduce using rule 17 (expression -> GE expression expression .)
+    $end            reduce using rule 17 (expression -> GE expression expression .)
+
+
+state 56
+
+    (20) expression -> ID ASSIGN expression .
+
+    FOR             reduce using rule 20 (expression -> ID ASSIGN expression .)
+    ADD             reduce using rule 20 (expression -> ID ASSIGN expression .)
+    SUB             reduce using rule 20 (expression -> ID ASSIGN expression .)
+    MUL             reduce using rule 20 (expression -> ID ASSIGN expression .)
+    DIV             reduce using rule 20 (expression -> ID ASSIGN expression .)
+    AND             reduce using rule 20 (expression -> ID ASSIGN expression .)
+    OR              reduce using rule 20 (expression -> ID ASSIGN expression .)
+    EQ              reduce using rule 20 (expression -> ID ASSIGN expression .)
+    NE              reduce using rule 20 (expression -> ID ASSIGN expression .)
+    LT              reduce using rule 20 (expression -> ID ASSIGN expression .)
+    GT              reduce using rule 20 (expression -> ID ASSIGN expression .)
+    LE              reduce using rule 20 (expression -> ID ASSIGN expression .)
+    GE              reduce using rule 20 (expression -> ID ASSIGN expression .)
+    NOT             reduce using rule 20 (expression -> ID ASSIGN expression .)
+    SQRT            reduce using rule 20 (expression -> ID ASSIGN expression .)
+    ID              reduce using rule 20 (expression -> ID ASSIGN expression .)
+    INTEGER_CONST   reduce using rule 20 (expression -> ID ASSIGN expression .)
+    REAL_CONST      reduce using rule 20 (expression -> ID ASSIGN expression .)
+    TRUE            reduce using rule 20 (expression -> ID ASSIGN expression .)
+    FALSE           reduce using rule 20 (expression -> ID ASSIGN expression .)
+    RBRACKET        reduce using rule 20 (expression -> ID ASSIGN expression .)
+    $end            reduce using rule 20 (expression -> ID ASSIGN expression .)
+
+
+state 57
+
+    (27) array_ref -> ID LBRACKET expression . RBRACKET
+
+    RBRACKET        shift and go to state 59
+
+
+state 58
+
+    (4) for_stmt -> expression FOR expression expression . assign_stmt
+    (5) assign_stmt -> . ID LBRACKET expression RBRACKET ASSIGN expression
+
+    ID              shift and go to state 61
+
+    assign_stmt                    shift and go to state 60
+
+state 59
+
+    (27) array_ref -> ID LBRACKET expression RBRACKET .
+
+    FOR             reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    ADD             reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    SUB             reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    MUL             reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    DIV             reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    AND             reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    OR              reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    EQ              reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    NE              reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    LT              reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    GT              reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    LE              reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    GE              reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    NOT             reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    SQRT            reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    ID              reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    INTEGER_CONST   reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    REAL_CONST      reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    TRUE            reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    FALSE           reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    RBRACKET        reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+    $end            reduce using rule 27 (array_ref -> ID LBRACKET expression RBRACKET .)
+
+
+state 60
+
+    (4) for_stmt -> expression FOR expression expression assign_stmt .
+
+    ADD             reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    SUB             reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    MUL             reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    DIV             reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    AND             reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    OR              reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    EQ              reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    NE              reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    LT              reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    GT              reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    LE              reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    GE              reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    NOT             reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    SQRT            reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    ID              reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    INTEGER_CONST   reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    REAL_CONST      reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    TRUE            reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    FALSE           reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+    $end            reduce using rule 4 (for_stmt -> expression FOR expression expression assign_stmt .)
+
+
+state 61
+
+    (5) assign_stmt -> ID . LBRACKET expression RBRACKET ASSIGN expression
+
+    LBRACKET        shift and go to state 62
+
+
+state 62
+
+    (5) assign_stmt -> ID LBRACKET . expression RBRACKET ASSIGN expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
+
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expression                     shift and go to state 63
+    array_ref                      shift and go to state 24
+
+state 63
+
+    (5) assign_stmt -> ID LBRACKET expression . RBRACKET ASSIGN expression
+
+    RBRACKET        shift and go to state 64
+
+
+state 64
+
+    (5) assign_stmt -> ID LBRACKET expression RBRACKET . ASSIGN expression
+
+    ASSIGN          shift and go to state 65
+
+
+state 65
+
+    (5) assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN . expression
+    (6) expression -> . ADD expression expression
+    (7) expression -> . SUB expression expression
+    (8) expression -> . MUL expression expression
+    (9) expression -> . DIV expression expression
+    (10) expression -> . AND expression expression
+    (11) expression -> . OR expression expression
+    (12) expression -> . EQ expression expression
+    (13) expression -> . NE expression expression
+    (14) expression -> . LT expression expression
+    (15) expression -> . GT expression expression
+    (16) expression -> . LE expression expression
+    (17) expression -> . GE expression expression
+    (18) expression -> . NOT expression
+    (19) expression -> . SQRT expression
+    (20) expression -> . ID ASSIGN expression
+    (21) expression -> . ID
+    (22) expression -> . INTEGER_CONST
+    (23) expression -> . REAL_CONST
+    (24) expression -> . TRUE
+    (25) expression -> . FALSE
+    (26) expression -> . array_ref
+    (27) array_ref -> . ID LBRACKET expression RBRACKET
+
+    ADD             shift and go to state 5
+    SUB             shift and go to state 6
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+    AND             shift and go to state 9
+    OR              shift and go to state 10
+    EQ              shift and go to state 11
+    NE              shift and go to state 12
+    LT              shift and go to state 13
+    GT              shift and go to state 14
+    LE              shift and go to state 15
+    GE              shift and go to state 16
+    NOT             shift and go to state 17
+    SQRT            shift and go to state 18
+    ID              shift and go to state 19
+    INTEGER_CONST   shift and go to state 20
+    REAL_CONST      shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expression                     shift and go to state 66
+    array_ref                      shift and go to state 24
+
+state 66
+
+    (5) assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .
+
+    ADD             reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    SUB             reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    MUL             reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    DIV             reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    AND             reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    OR              reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    EQ              reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    NE              reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    LT              reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    GT              reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    LE              reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    GE              reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    NOT             reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    SQRT            reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    ID              reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    INTEGER_CONST   reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    REAL_CONST      reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    TRUE            reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    FALSE           reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
+    $end            reduce using rule 5 (assign_stmt -> ID LBRACKET expression RBRACKET ASSIGN expression .)
 
