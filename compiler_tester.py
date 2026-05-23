@@ -1,5 +1,5 @@
-from lexer import lexer
-from parser import parser
+from lexer import lexer, lex_errors, reset_errors as reset_lex_errors
+from parser import parser, parse_errors, reset_errors as reset_parse_errors
 from compiler import compile_to_c
 
 tests = [
@@ -24,12 +24,28 @@ tests = [
 for i, test in enumerate(tests, 1):
     print(f"\n=== Test {i} ===")
     print("Input:", test)
+    
+    # Сбрасываем ошибки перед каждым тестом
+    reset_lex_errors()
+    reset_parse_errors()
+    
     try:
         ast = parser.parse(test, lexer=lexer)
-        if ast is None:
-            print("Parsing failed (AST is None).")
+        
+        # Проверяем, были ли ошибки
+        has_errors = len(lex_errors) > 0 or len(parse_errors) > 0
+        
+        if ast is None or has_errors:
+            if ast is None and not has_errors:
+                print("\033[31mParsing failed (AST is None).\033[0m")
+            if has_errors:
+                print(f"\033[31mTest FAILED with {len(lex_errors)} lexer error(s) and {len(parse_errors)} parser error(s).\033[0m")
         else:
             c_code = compile_to_c(ast)
-            print("Generated C fragment:\n" + c_code)
+            print("Generated C fragment:")
+            print(f"\033[33m{c_code}\033[0m")
+            print("\033[32mTest passed.\033[0m")
+            
     except Exception as e:
-        print("Exception:", e)
+        print(f"\033[31mException: {e}\033[0m")
+        print("\033[31mTest FAILED with exception.\033[0m")

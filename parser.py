@@ -1,6 +1,9 @@
 import ply.yacc as yacc
 from lexer import tokens
 
+# Список для сбора синтаксических ошибок
+parse_errors = []
+
 def p_program(p):
     '''program : for_list'''
     p[0] = p[1]
@@ -60,8 +63,16 @@ def p_array_ref(p):
 
 def p_error(p):
     if p:
-        print(f"Syntax error at token '{p.value}' (line {p.lineno})")
+        error_msg = f"\033[31mSyntax error at token '{p.value}' (line {p.lineno})\033[0m"
+        parse_errors.append(error_msg)
+        print(error_msg)
     else:
-        print("Syntax error at end of input")
+        error_msg = "\033[31mSyntax error at end of input\033[0m"
+        parse_errors.append(error_msg)
+        print(error_msg)
+
+# Функция для сброса ошибок перед новым тестом
+def reset_errors():
+    parse_errors.clear()
 
 parser = yacc.yacc()
