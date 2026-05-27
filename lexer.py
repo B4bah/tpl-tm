@@ -18,12 +18,12 @@ reserved = {
     'sqrt': 'SQRT',
     'true': 'TRUE',
     'false': 'FALSE',
+    'assign': 'ASSIGN',
 }
 
 tokens = ['ID', 'INTEGER_CONST', 'REAL_CONST',
-          'ASSIGN', 'LBRACKET', 'RBRACKET'] + list(reserved.values())
+          'LBRACKET', 'RBRACKET'] + list(reserved.values())
 
-t_ASSIGN = r'='
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
 
@@ -68,7 +68,7 @@ def t_error(t):
     print(error_msg)
     t.lexer.skip(1)
 
-# Функция для сброса ошибок перед новым тестом
+# Функция для сброса ошибок
 def reset_errors():
     lex_errors.clear()
 

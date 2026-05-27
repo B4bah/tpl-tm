@@ -21,8 +21,16 @@ def p_for_stmt(p):
     p[0] = ('for', p[1], p[3], p[4], p[5])
 
 def p_assign_stmt(p):
-    '''assign_stmt : ID LBRACKET expression RBRACKET ASSIGN expression'''
-    p[0] = ('assign', p[1], p[3], p[6])
+    '''assign_stmt : ASSIGN array_ref expression'''
+    p[0] = ('assign', p[2][1], p[2][2], p[3])
+
+def p_array_ref(p):
+    '''array_ref : ID LBRACKET expression RBRACKET'''
+    p[0] = ('array', p[1], p[3])
+
+def p_expression_assign_var(p):
+    '''expression : ASSIGN ID expression'''
+    p[0] = ('assign_var', p[2], p[3])
 
 def p_expression_binary(p):
     '''expression : ADD expression expression
@@ -44,10 +52,6 @@ def p_expression_unary(p):
                   | SQRT expression'''
     p[0] = (p[1], p[2])
 
-def p_expression_assign(p):
-    '''expression : ID ASSIGN expression'''
-    p[0] = ('assign_var', p[1], p[3])
-
 def p_expression_operand(p):
     '''expression : ID
                   | INTEGER_CONST
@@ -56,10 +60,6 @@ def p_expression_operand(p):
                   | FALSE
                   | array_ref'''
     p[0] = p[1]
-
-def p_array_ref(p):
-    '''array_ref : ID LBRACKET expression RBRACKET'''
-    p[0] = ('array', p[1], p[3])
 
 def p_error(p):
     if p:
@@ -71,7 +71,7 @@ def p_error(p):
         parse_errors.append(error_msg)
         print(error_msg)
 
-# Функция для сброса ошибок перед новым тестом
+# Функция для сброса ошибок
 def reset_errors():
     parse_errors.clear()
 
